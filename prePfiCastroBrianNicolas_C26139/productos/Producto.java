@@ -22,11 +22,17 @@ public class Producto {
     public int getStock() { return stock; }
 
     public void setStock(int stock) {
-        if (stock >= 0) this.stock = stock;
+        if (stock < 0) {
+            throw new IllegalArgumentException("El stock no puede ser negativo");
+        }
+        this.stock = stock;
     }
 
     public void setPrecio(double precio) {
-        if (precio > 0) this.precio = precio;
+        if (precio <= 0) {
+            throw new IllegalArgumentException("El precio debe ser mayor a 0");
+        }
+        this.precio = precio;
     }
 
     @Override

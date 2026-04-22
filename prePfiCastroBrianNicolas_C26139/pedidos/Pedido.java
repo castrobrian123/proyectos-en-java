@@ -23,18 +23,21 @@ public class Pedido {
     public double calcularTotal() {
         double total = 0;
         for (LineaPedido l : lineas) {
-            total += l.subtotal();
+            total += l.getProducto().getPrecio() * l.getCantidad();
         }
         return total;
     }
 
     public void mostrar() {
-        System.out.println("Pedido #" + id);
+        System.out.println("Pedido ID: " + id);
+
         for (LineaPedido l : lineas) {
-            System.out.println(l.getProducto().getNombre() +
-                    " x" + l.getCantidad() +
-                    " = $" + l.subtotal());
+            System.out.println(
+                l.getProducto().getNombre() + " x" + l.getCantidad() + " = $" + (l.getCantidad() * l.getProducto().getPrecio())
+            );
         }
-        System.out.println("TOTAL: $" + calcularTotal());
+
+        System.out.println("Total: $" + calcularTotal());
     }
+
 }

@@ -3,6 +3,7 @@ package services;
 
 import productos.Producto;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProductoService {
 
@@ -27,17 +28,36 @@ public class ProductoService {
                 .orElse(null);
     }
 
-    public void eliminar(int id) {
+    public Producto buscarPorNombre(String nombre) {
+        return productos.stream()
+                .filter(p -> p.getNombre().equalsIgnoreCase(nombre))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public void actualizarProducto(int id, double precio, int stock) {
         Producto p = buscarPorId(id);
+
         if (p != null) {
-            productos.remove(p);
+            p.setPrecio(precio);
+            p.setStock(stock);
+            System.out.println("Producto actualizado");
+        } else {
+            System.out.println("Producto no encontrado");
+        }
+    }
+
+    public void eliminar(int id) {
+        boolean eliminado = productos.removeIf(p -> p.getId() == id);
+
+        if (eliminado) {
             System.out.println("Eliminado");
         } else {
             System.out.println("No encontrado");
         }
     }
 
-    public ArrayList<Producto> getProductos() {
-        return productos;
+    public List<Producto> getProductos() {
+        return new ArrayList<>(productos);
     }
 }
