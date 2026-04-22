@@ -13,10 +13,6 @@ public class PedidoService {
 
     public Pedido crearPedido(ArrayList<LineaPedido> lineas) throws StockInsuficienteException {
 
-        //if (lineas == null || lineas.isEmpty()) { //deberia funcionar
-        //    throw new IllegalArgumentException("El pedido debe tener al menos un producto");
-        //}
-
         Pedido pedido = new Pedido();
 
         for (LineaPedido l : lineas) {

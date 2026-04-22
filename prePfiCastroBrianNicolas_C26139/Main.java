@@ -6,7 +6,6 @@ import services.PedidoService;
 import excepciones.StockInsuficienteException;
 
 import java.util.*;
-//import java.util.Scanner;
 
 public class Main {
 
@@ -75,11 +74,6 @@ public class Main {
                                 lineas.add(new LineaPedido(p, c));
                             }
                         }
-
-                        //if (lineas.isEmpty()) { //deberia funcionar
-                        //    System.out.println("No se puede crear un pedido sin productos");
-                        //    break;
-                        //}
 
                         pedidoService.crearPedido(lineas);
                         System.out.println("Pedido creado!");
