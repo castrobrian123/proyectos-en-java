@@ -1,269 +1,102 @@
-package prePfiCastroBrianNicolas_C26139;
 
-import prePfiCastroBrianNicolas_C26139.productos.Producto;
-import prePfiCastroBrianNicolas_C26139.pedidos.Pedido;
-import prePfiCastroBrianNicolas_C26139.lineaPedido.LineaPedido;
+import productos.Producto;
+import lineaPedido.LineaPedido;
+import services.ProductoService;
+import services.PedidoService;
+import excepciones.StockInsuficienteException;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
+//import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-
-        ArrayList<Producto> productos = new ArrayList<>();
-        ArrayList<Pedido> pedidos = new ArrayList<>();
+        ProductoService productoService = new ProductoService();
+        PedidoService pedidoService = new PedidoService();
 
         int opcion;
 
         do {
-            System.out.println("\n=== MENU ===");
+            System.out.println(" ");
             System.out.println("1) Agregar producto");
             System.out.println("2) Listar productos");
-            System.out.println("3) Buscar / Actualizar producto");
-            System.out.println("4) Eliminar producto");
-            System.out.println("5) Crear pedido");
-            System.out.println("6) Listar pedidos");
-            System.out.println("7) Salir");
+            System.out.println("3) Eliminar producto");
+            System.out.println("4) Crear pedido");
+            System.out.println("5) Listar pedidos");
+            System.out.println("6) Salir\n");
 
+            System.out.print("introdusca un numero: ");
             opcion = sc.nextInt();
 
-            switch (opcion) {
+            try {
+                switch (opcion) {
 
-                // AGREGAR PRODUCTO
-                case 1:
-                    sc.nextLine();
-                    System.out.print("Nombre: ");
-                    String nombre = sc.nextLine();
+                    case 1:
+                        sc.nextLine();
+                        System.out.print("\nNombre: ");
+                        String nombre = sc.nextLine();
 
-                    System.out.print("Precio: ");
-                    double precio = sc.nextDouble();
+                        System.out.print("Precio: ");
+                        double precio = sc.nextDouble();
 
-                    System.out.print("Stock: ");
-                    int stock = sc.nextInt();
+                        System.out.print("Stock: ");
+                        int stock = sc.nextInt();
 
-                    productos.add(new Producto(nombre, precio, stock));
-                    break;
-
-                // LISTAR PRODUCTOS
-                case 2:
-                    if (productos.isEmpty()) {
-                        System.out.println("No hay productos cargados.");
-                    } else {
-                        for (Producto p : productos) {
-                            System.out.println(p);
-                        }
-                    }
-                    break;
-
-                // BUSCAR / ACTUALIZAR
-                case 3: {
-
-                    System.out.println("Buscar producto por:");
-                    System.out.println("1) ID");
-                    System.out.println("2) Nombre");
-
-                    int tipoBusqueda = sc.nextInt();
-                    sc.nextLine();
-
-                    Producto encontrado = null;
-
-                    if (tipoBusqueda == 1) {
-
-                        System.out.print("Ingrese ID: ");
-                        int idBuscar = sc.nextInt();
-
-                        for (Producto p : productos) {
-                            if (p.getId() == idBuscar) {
-                                encontrado = p;
-                                break;
-                            }
-                        }
-
-                    } else if (tipoBusqueda == 2) {
-
-                        System.out.print("Ingrese nombre: ");
-                        String nombreBuscar = sc.nextLine();
-
-                        for (Producto p : productos) {
-                            if (p.getNombre().equalsIgnoreCase(nombreBuscar)) {
-                                encontrado = p;
-                                break;
-                            }
-                        }
-                    }
-
-                    if (encontrado != null) {
-
-                        System.out.println("Producto encontrado:");
-                        System.out.println(encontrado);
-
-                        System.out.println("¿Qué desea actualizar?");
-                        System.out.println("1) Precio");
-                        System.out.println("2) Stock");
-                        System.out.println("3) Nada");
-
-                        int opcionAct = sc.nextInt();
-
-                        switch (opcionAct) {
-
-                            case 1:
-                                System.out.print("Nuevo precio: ");
-                                double nuevoPrecio = sc.nextDouble();
-
-                                if (nuevoPrecio > 0) {
-                                    encontrado.setPrecio(nuevoPrecio);
-                                    System.out.println("Precio actualizado");
-                                } else {
-                                    System.out.println("Precio inválido");
-                                }
-                                break;
-
-                            case 2:
-                                System.out.print("Nuevo stock: ");
-                                int nuevoStock = sc.nextInt();
-
-                                if (nuevoStock >= 0) {
-                                    encontrado.setStock(nuevoStock);
-                                    System.out.println("Stock actualizado");
-                                } else {
-                                    System.out.println("Stock inválido");
-                                }
-                                break;
-
-                            case 3:
-                                System.out.println("Sin cambios");
-                                break;
-                        }
-
-                    } else {
-                        System.out.println("Producto no encontrado");
-                    }
-
-                    break;
-                }
-
-                // ELIMINAR PRODUCTO CON CONFIRMACIÓN
-                case 4: {
-
-                    System.out.print("Ingrese ID del producto a eliminar: ");
-                    int idEliminar = sc.nextInt();
-                    sc.nextLine();
-
-                    Producto encontrado = null;
-
-                    for (Producto p : productos) {
-                        if (p.getId() == idEliminar) {
-                            encontrado = p;
-                            break;
-                        }
-                    }
-
-                    if (encontrado != null) {
-
-                        System.out.println("Producto encontrado:");
-                        System.out.println(encontrado);
-
-                        System.out.print("¿Está seguro que desea eliminarlo? (S/N): ");
-                        String confirmacion = sc.nextLine();
-
-                        if (confirmacion.equalsIgnoreCase("S") ||
-                            confirmacion.equalsIgnoreCase("SI")) {
-
-                            productos.remove(encontrado);
-                            System.out.println("Producto eliminado correctamente");
-
-                        } else {
-                            System.out.println("Eliminación cancelada");
-                        }
-
-                    } else {
-                        System.out.println("Producto no encontrado");
-                    }
-
-                    break;
-                }
-
-                // CREAR PEDIDO
-                case 5: {
-
-                    if (productos.isEmpty()) {
-                        System.out.println("No hay productos disponibles.");
+                        productoService.agregar(new Producto(nombre, precio, stock));
                         break;
-                    }
 
-                    Pedido pedido = new Pedido();
+                    case 2:
+                        productoService.listar();
+                        break;
 
-                    System.out.print("¿Cuántos productos desea agregar?: ");
-                    int cantidad = sc.nextInt();
-
-                    for (int i = 0; i < cantidad; i++) {
-
-                        System.out.print("ID producto: ");
+                    case 3:
+                        System.out.print("ID: ");
                         int id = sc.nextInt();
+                        productoService.eliminar(id);
+                        break;
 
-                        Producto encontrado = null;
+                    case 4:
+                        ArrayList<LineaPedido> lineas = new ArrayList<>();
 
-                        for (Producto p : productos) {
-                            if (p.getId() == id) {
-                                encontrado = p;
-                                break;
+                        System.out.print("\nCantidad de productos: ");
+                        int cant = sc.nextInt();
+
+                        for (int i = 0; i < cant; i++) {
+                            System.out.print("ID producto: ");
+                            int idP = sc.nextInt();
+
+                            Producto p = productoService.buscarPorId(idP);
+
+                            if (p != null) {
+                                System.out.print("Cantidad: ");
+                                int c = sc.nextInt();
+                                lineas.add(new LineaPedido(p, c));
                             }
                         }
 
-                        if (encontrado != null) {
+                        //if (lineas.isEmpty()) { //deberia funcionar
+                        //    System.out.println("No se puede crear un pedido sin productos");
+                        //    break;
+                        //}
 
-                            System.out.print("Cantidad: ");
-                            int cant = sc.nextInt();
+                        pedidoService.crearPedido(lineas);
+                        System.out.println("Pedido creado!");
+                        break;
 
-                            if (cant <= encontrado.getStock()) {
-
-                                encontrado.setStock(
-                                    encontrado.getStock() - cant
-                                );
-
-                                pedido.agregarLinea(
-                                    new LineaPedido(encontrado, cant)
-                                );
-
-                            } else {
-                                System.out.println("Stock insuficiente");
-                            }
-
-                        } else {
-                            System.out.println("Producto no encontrado");
-                        }
-                    }
-
-                    pedidos.add(pedido);
-                    System.out.println("Pedido creado correctamente");
-
-                    break;
+                    case 5:
+                        pedidoService.listar();
+                        break;
                 }
-
-                // LISTAR PEDIDOS
-                case 6:
-                    if (pedidos.isEmpty()) {
-                        System.out.println("No hay pedidos realizados.");
-                    } else {
-                        for (Pedido p : pedidos) {
-                            p.mostrar();
-                            System.out.println("-----");
-                        }
-                    }
-                    break;
-
-                case 7:
-                    System.out.println("Saliendo del sistema...");
-                    break;
-
-                default:
-                    System.out.println("Opción inválida");
+            } catch (StockInsuficienteException e) {
+                System.out.println(e.getMessage());
+            } catch (Exception e) {
+                System.out.println("Error en datos ingresados");
+                sc.nextLine();
             }
 
-        } while (opcion != 7);
+        } while (opcion != 6);
 
         sc.close();
     }

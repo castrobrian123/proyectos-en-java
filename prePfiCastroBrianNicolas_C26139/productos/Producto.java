@@ -1,4 +1,5 @@
-package prePfiCastroBrianNicolas_C26139.productos;
+
+package productos;
 
 public class Producto {
     private static int contador = 1;
@@ -11,8 +12,8 @@ public class Producto {
     public Producto(String nombre, double precio, int stock) {
         this.id = contador++;
         this.nombre = nombre;
-        this.precio = precio;
-        this.stock = stock;
+        setPrecio(precio);
+        setStock(stock);
     }
 
     public int getId() { return id; }
@@ -30,6 +31,6 @@ public class Producto {
 
     @Override
     public String toString() {
-        return id + " - " + nombre + " | $" + precio + " | Stock: " + stock;
+        return "\n" + id + " - " + nombre + " | $" + precio + " | Stock: " + stock;
     }
 }

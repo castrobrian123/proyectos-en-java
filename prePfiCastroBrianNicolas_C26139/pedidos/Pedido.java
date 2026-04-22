@@ -1,6 +1,7 @@
-package prePfiCastroBrianNicolas_C26139.pedidos;
 
-import prePfiCastroBrianNicolas_C26139.lineaPedido.LineaPedido;
+package pedidos;
+
+import lineaPedido.LineaPedido;
 
 import java.util.ArrayList;
 
@@ -8,32 +9,32 @@ public class Pedido {
     private static int contador = 1;
 
     private int id;
-    private ArrayList<LineaPedido> lineas = new ArrayList<>();
+    private ArrayList<LineaPedido> lineas;
 
     public Pedido() {
         this.id = contador++;
+        this.lineas = new ArrayList<>();
     }
 
     public void agregarLinea(LineaPedido lp) {
         lineas.add(lp);
     }
 
-    public void mostrar() {
+    public double calcularTotal() {
         double total = 0;
-
-        System.out.println("Pedido #" + id);
-
         for (LineaPedido l : lineas) {
-            double sub = l.subtotal();
-            total += sub;
-
-            System.out.println(
-                l.getProducto().getNombre() +
-                " x" + l.getCantidad() +
-                " = $" + sub
-            );
+            total += l.subtotal();
         }
+        return total;
+    }
 
-        System.out.println("TOTAL: $" + total);
+    public void mostrar() {
+        System.out.println("Pedido #" + id);
+        for (LineaPedido l : lineas) {
+            System.out.println(l.getProducto().getNombre() +
+                    " x" + l.getCantidad() +
+                    " = $" + l.subtotal());
+        }
+        System.out.println("TOTAL: $" + calcularTotal());
     }
 }

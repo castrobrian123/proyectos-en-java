@@ -1,6 +1,7 @@
-package prePfiCastroBrianNicolas_C26139.lineaPedido;
 
-import prePfiCastroBrianNicolas_C26139.productos.Producto;
+package lineaPedido;
+
+import productos.Producto;
 
 public class LineaPedido {
 
