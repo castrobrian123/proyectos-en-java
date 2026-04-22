@@ -1,4 +1,4 @@
-package prePfiCastroBrianNicolas_C26139.main;
+package prePfiCastroBrianNicolas_C26139;
 
 import prePfiCastroBrianNicolas_C26139.productos.Producto;
 import prePfiCastroBrianNicolas_C26139.pedidos.Pedido;
