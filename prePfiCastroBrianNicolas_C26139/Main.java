@@ -35,7 +35,7 @@ public class Main {
                     switch (opcion) {
 
                         case 1:
-                            System.out.print("Nombre: ");
+                            System.out.print("\nNombre: ");
                             String nombre = sc.nextLine();
 
                             System.out.print("Precio: ");
@@ -49,14 +49,14 @@ public class Main {
                             break;
 
                         case 2:
-                            System.out.println("==== LISTA DE PRODUCTOS ==== ");
+                            System.out.println("\n==== LISTA DE PRODUCTOS ==== ");
 
 
                             productoService.listar();
                             break;
 
                         case 3:
-                            System.out.println("Buscar por: 1) ID  2) Nombre");
+                            System.out.println("\nBuscar por: 1) ID  2) Nombre");
                             int tipoBusqueda = Integer.parseInt(sc.nextLine());
 
                             Producto prod = null;
@@ -105,7 +105,7 @@ public class Main {
                         case 5:
                             ArrayList<LineaPedido> lineas = new ArrayList<>();
 
-                            System.out.print("Cantidad de productos distintos: ");
+                            System.out.print("\nCantidad de productos distintos: ");
                             int cant = Integer.parseInt(sc.nextLine());
 
                             for (int i = 0; i < cant; i++) {

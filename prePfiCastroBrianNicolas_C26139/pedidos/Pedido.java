@@ -29,11 +29,11 @@ public class Pedido {
     }
 
     public void mostrar() {
-        System.out.println("Pedido ID: " + id);
+        System.out.println("\nPedido ID: " + id);
 
         for (LineaPedido l : lineas) {
             System.out.println(
-                l.getProducto().getNombre() + " x" + l.getCantidad() + " = $" + (l.getCantidad() * l.getProducto().getPrecio())
+                l.getProducto().getNombre() + " x " + l.getCantidad() + " = $ " + (l.getCantidad() * l.getProducto().getPrecio())
             );
         }
 
